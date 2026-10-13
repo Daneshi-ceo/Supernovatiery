@@ -1,0 +1,317 @@
+
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#08090d">
+<title>Supernova Tiers</title>
+<style>
+:root{--bg:#08090d;--card:#11131a;--card2:#171a23;--text:#f4f6fb;--muted:#9aa2b1;--accent:#8b5cf6;--border:#252a36;--cyan:#67e8f9;--red:#fb7185;--green:#6ee7b7}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{margin:0;background:radial-gradient(circle at 50% -10%,#252044 0,#08090d 38%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.65}
+nav{position:sticky;top:0;z-index:5;background:#08090ddd;backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:16px 5%;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.logo{font-weight:900;white-space:nowrap}.logo span{color:var(--accent)}
+.navlinks{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.navlinks button{color:#cbd1dc;background:transparent;border:1px solid transparent;border-radius:9px;padding:9px 12px;font:inherit;font-size:13px;cursor:pointer}
+.navlinks button:hover,.navlinks button.active{color:white;background:#211a38;border-color:#49377a}
+.hero{max-width:1100px;margin:auto;padding:80px 24px 55px;text-align:center}
+.badge{display:inline-block;padding:7px 12px;border:1px solid #3a315f;background:#171329;border-radius:999px;color:#c8b9ff;font-size:13px}
+h1{font-size:clamp(43px,8vw,82px);line-height:.98;margin:22px 0 18px;letter-spacing:-3px}
+.gradient{background:linear-gradient(90deg,#fff,#a78bfa,#67e8f9);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:680px;margin:0 auto 25px;color:var(--muted);font-size:17px}
+.btn{display:inline-block;padding:12px 18px;border-radius:11px;text-decoration:none;font-weight:800;margin:5px;border:1px solid var(--border);color:white;background:var(--card2);cursor:pointer}
+.btn.primary{background:linear-gradient(135deg,var(--accent),#6d28d9);border:0}
+main{max-width:1100px;margin:auto;padding:0 24px 60px}
+.page{display:none;animation:fade .22s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:none}}
+section{padding:24px 0}
+.title{font-size:clamp(27px,4vw,35px);margin:0 0 5px;line-height:1.25}
+.sub{color:var(--muted);margin:0 0 24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:linear-gradient(145deg,#141720,#0f1117);border:1px solid var(--border);border-radius:16px;padding:22px;min-width:0}
+.card h3{margin:0 0 10px;font-size:19px}
+.card p{color:#d2d7e2}
+.tier{font-size:28px;font-weight:900}
+.players{color:var(--muted);margin-top:5px}
+.tierline{height:3px;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--cyan));margin-top:17px}
+.tag{display:inline-block;padding:4px 10px;border:1px solid var(--border);border-radius:99px;font-size:12px;color:var(--muted);margin-bottom:12px}
+.tag.green{color:var(--green);border-color:#245b49}
+.tag.red{color:var(--red);border-color:#66303b}
+.tag.purple{color:#c8b9ff;border-color:#49377a}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:14px;border-bottom:1px solid var(--border);vertical-align:top}
+th{color:#aeb6c5;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+tr:last-child td{border-bottom:0}
+.rulelist{display:grid;gap:8px}
+.rule{display:flex;gap:10px;align-items:flex-start;background:#0c0e14;border:1px solid var(--border);padding:10px 12px;border-radius:10px;overflow-wrap:anywhere}
+.dot{width:8px;height:8px;flex:0 0 8px;margin-top:9px;border-radius:50%;background:var(--green)}
+.rule.bad .dot{background:var(--red)}
+.callout{padding:15px 17px;margin-top:16px;background:#171329;border:1px solid #3a315f;border-left:4px solid var(--accent);border-radius:10px}
+.callout.warning{background:#201a10;border-color:#5b4925;border-left-color:#fbbf24}
+.callout p{margin:5px 0}
+.bigtime{font-size:30px;font-weight:900;color:var(--cyan);line-height:1.3}
+footer{text-align:center;color:#737b8b;border-top:1px solid var(--border);padding:30px 20px}
+.muted{color:var(--muted)}
+@media(max-width:700px){
+ nav{align-items:flex-start;flex-direction:column;padding:13px 5%;gap:10px}
+ .navlinks{justify-content:flex-start;width:100%}
+ .navlinks button{font-size:12px;padding:8px 10px}
+ .hero{padding-top:55px}
+ h1{letter-spacing:-2px}
+ main{padding-left:16px;padding-right:16px}
+ .card{padding:18px}
+ th,td{padding:10px;font-size:13px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">SUPERNOVA <span>TIERS</span></div>
+  <div class="navlinks">
+    <button class="active" data-page="home">Start</button>
+    <button data-page="tiers">Tier List</button>
+    <button data-page="testing">Testy</button>
+    <button data-page="mods">Modyfikacje</button>
+    <button data-page="general">Ogólne zakazy</button>
+    <button data-page="modes">Zasady trybów</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="badge">MINECRAFT PvP TIER LIST</div>
+  <h1><span class="gradient">SUPERNOVA</span><br>TIERS</h1>
+  <p>Profesjonalna lista tierów Minecraft PvP. Sprawdź ranking, wymagania testów i regulamin modyfikacji.</p>
+  <button class="btn primary" onclick="showPage('tiers')">Zobacz tiery</button>
+  <button class="btn" onclick="showPage('testing')">Jak dostać tier?</button>
+</header>
+
+<main>
+
+<!-- START -->
+<div class="page active" id="home">
+  <section>
+    <h2 class="title">Witaj w Supernova Tiers</h2>
+    <p class="sub">Wybierz sekcję, której szukasz.</p>
+    <div class="grid">
+      <article class="card">
+        <span class="tag purple">01 / RANKING</span>
+        <h3>Tier List</h3>
+        <p>System rankingowy od LT5 do HT1.</p>
+        <button class="btn primary" onclick="showPage('tiers')">Otwórz ranking →</button>
+      </article>
+      <article class="card">
+        <span class="tag purple">02 / TESTY</span>
+        <h3>Testy i High Test</h3>
+        <p>Sprawdź wymagania, potrzebne walki i cooldowny.</p>
+        <button class="btn primary" onclick="showPage('testing')">Zasady testów →</button>
+      </article>
+      <article class="card">
+        <span class="tag green">03 / MODY</span>
+        <h3>Modyfikacje</h3>
+        <p>Lista modów dozwolonych oraz zabronionych.</p>
+        <button class="btn" onclick="showPage('mods')">Sprawdź mody →</button>
+      </article>
+      <article class="card">
+        <span class="tag red">04 / REGULAMIN</span>
+        <h3>Ogólne zakazy</h3>
+        <p>Cheaty, makra i inne zabronione narzędzia.</p>
+        <button class="btn" onclick="showPage('general')">Otwórz regulamin →</button>
+      </article>
+      <article class="card">
+        <span class="tag purple">05 / TRYBY</span>
+        <h3>Zasady trybów</h3>
+        <p>Osobne zasady dla CPvP, Axe, SMP i Podziemi.</p>
+        <button class="btn" onclick="showPage('modes')">Zobacz zasady →</button>
+      </article>
+    </div>
+  </section>
+</div>
+
+<!-- TIER LIST -->
+<div class="page" id="tiers">
+  <section>
+    <h2 class="title">Tier List</h2>
+    <p class="sub">System rankingowy od LT5 do HT1.</p>
+    <div class="grid">
+      <div class="card"><div class="tier">LT5</div><div class="players">Low Tier 5</div><div class="tierline"></div></div>
+      <div class="card"><div class="tier">HT5</div><div class="players">High Tier 5</div><div class="tierline"></div></div>
+      <div class="card"><div class="tier">LT4</div><div class="players">Low Tier 4</div><div class="tierline"></div></div>
+      <div class="card"><div class="tier">HT4</div><div class="players">High Tier 4</div><div class="tierline"></div></div>
+      <div class="card"><div class="tier">LT3</div><div class="players">Low Tier 3</div><div class="tierline"></div></div>
+      <div class="card"><div class="tier">HT3</div><div class="players">High Tier 3</div><div class="tierline"></div></div>
+      <div class="card"><div class="tier">LT2</div><div class="players">Low Tier 2</div><div class="tierline"></div></div>
+      <div class="card"><div class="tier">HT2</div><div class="players">High Tier 2</div><div class="tierline"></div></div>
+      <div class="card"><div class="tier">LT1</div><div class="players">Low Tier 1</div><div class="tierline"></div></div>
+      <div class="card"><div class="tier">HT1</div><div class="players">High Tier 1</div><div class="tierline"></div></div>
+    </div>
+    <div class="callout">Ta sekcja przedstawia poziomy rankingowe. Listę graczy można dodać później.</div>
+  </section>
+</div>
+
+<!-- TESTY -->
+<div class="page" id="testing">
+  <section>
+    <h2 class="title">Testy i apelacje</h2>
+    <p class="sub">Wymagania na High Test, przykłady oraz cooldowny.</p>
+
+    <div class="card">
+      <span class="tag purple">HIGH TEST</span>
+      <h3>1. Jak zdobyć HT3+?</h3>
+      <p>Aby zdobyć HT3+, musisz zrobić ticket o High Testa, posiadać LT3+ oraz stoczyć 2 walki z HT3+ — w zależności od tego, o jakiego tiera apelujesz.</p>
+      <div class="callout">
+        <strong>Przykład</strong>
+        <p>Gracz X chce testa o LT2.</p>
+        <p>Musi wygrać 2 rundy z HT3 i 2 rundy z LT2.</p>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <span class="tag purple">WAŻNE</span>
+      <h3>2. Wygrana z testerem HT3</h3>
+      <p>Jeśli gracz wygra z testerem HT3, maksymalny tier, jaki może dostać, to LT3. Jeśli zgłosi się o High Testa, tamta walka może zostać uznana do High Testa — wtedy gracz musi zagrać jeszcze jednego fighta z HT3+.</p>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>3. Cooldowny</h3>
+      <div class="grid">
+        <div class="card"><span class="tag">HIGH TEST</span><div class="bigtime">8 dni</div><p class="muted">Cooldown na High Test</p></div>
+        <div class="card"><span class="tag">EVAL</span><div class="bigtime">4 dni</div><p class="muted">Cooldown na Eval</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- MODY -->
+<div class="page" id="mods">
+  <section>
+    <h2 class="title">Regulamin modyfikacji</h2>
+    <p class="sub">Sprawdź listy przed rozpoczęciem testu.</p>
+    <div class="grid">
+      <article class="card">
+        <span class="tag green">DOZWOLONE</span>
+        <h3>Dozwolone modyfikacje</h3>
+        <div class="rulelist">
+          <div class="rule"><span class="dot"></span><span>Health Indicators</span></div>
+          <div class="rule"><span class="dot"></span><span>Marlow Crystal Optimizer</span></div>
+          <div class="rule"><span class="dot"></span><span>Soup API</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <span class="tag red">ZABRONIONE</span>
+        <h3>Zabronione modyfikacje</h3>
+        <div class="rulelist">
+          <div class="rule bad"><span class="dot"></span><span>Inventory Move</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Minimapa</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Auto Totem</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Elytra Swapper</span></div>
+          <div class="rule bad"><span class="dot"></span><span>FastPlace (Accurate Block Placement)</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Anti Trap</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Crystal Optimizer</span></div>
+          <div class="rule bad"><span class="dot"></span><span>MouseTweaks</span></div>
+          <div class="rule bad"><span class="dot"></span><span>FastQuit</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Hero's Anchor Optimizer</span></div>
+        </div>
+      </article>
+    </div>
+    <div class="callout warning">
+      <strong>📌 Nie jesteś pewien, czy dana modyfikacja jest dozwolona?</strong>
+      <p>Stwórz ticket i zapytaj administrację.</p>
+    </div>
+  </section>
+</div>
+
+<!-- OGÓLNE ZAKAZY -->
+<div class="page" id="general">
+  <section>
+    <h2 class="title">Ogólne zakazy</h2>
+    <p class="sub">Zabronione modyfikacje, programy i narzędzia.</p>
+    <div class="card">
+      <div class="rulelist">
+        <div class="rule bad"><span class="dot"></span><span>Auto Jump Reset</span></div>
+        <div class="rule bad"><span class="dot"></span><span>Consumable Optimizer</span></div>
+        <div class="rule bad"><span class="dot"></span><span>Mouse Tweaks</span></div>
+        <div class="rule bad"><span class="dot"></span><span>Inventory Move</span></div>
+        <div class="rule bad"><span class="dot"></span><span>Accurate Block Placement</span></div>
+        <div class="rule bad"><span class="dot"></span><span>Anti Ghost</span></div>
+        <div class="rule bad"><span class="dot"></span><span>ImproperUI</span></div>
+        <div class="rule bad"><span class="dot"></span><span>Freecam</span></div>
+        <div class="rule bad"><span class="dot"></span><span>Wszelkie hacki i cheaty</span></div>
+        <div class="rule bad"><span class="dot"></span><span>Wszelkie makra, np. Mouse Tweaks, Auto Clickers, Tweakaroo, Item Scroller</span></div>
+        <div class="rule bad"><span class="dot"></span><span>Clumsy</span></div>
+        <div class="rule bad"><span class="dot"></span><span>Optimal Aim</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- TRYBY -->
+<div class="page" id="modes">
+  <section>
+    <h2 class="title">Zasady trybów</h2>
+    <p class="sub">Dodatkowe zakazy dla poszczególnych trybów.</p>
+    <div class="grid">
+      <article class="card">
+        <span class="tag purple">CPvP</span>
+        <h3>Crystal PvP</h3>
+        <div class="rulelist">
+          <div class="rule bad"><span class="dot"></span><span>Auto Totem</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Auto Clicker</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Hero's Elytra Optimizer</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Walksy's Crystal Optimizer</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Wszelkie mody i skrypty zmieniające ping</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <span class="tag purple">AXE</span>
+        <h3>Axe PvP</h3>
+        <div class="rulelist">
+          <div class="rule bad"><span class="dot"></span><span>Player Health Indicators</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Shield Status</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <span class="tag purple">SMP</span>
+        <h3>Survival Multiplayer</h3>
+        <div class="rulelist">
+          <div class="rule bad"><span class="dot"></span><span>Durability Pack</span></div>
+        </div>
+      </article>
+      <article class="card">
+        <span class="tag purple">PODZIEMIA</span>
+        <h3>Podziemia</h3>
+        <div class="rulelist">
+          <div class="rule bad"><span class="dot"></span><span>Error Killer</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Nemos Helper</span></div>
+          <div class="rule bad"><span class="dot"></span><span>Inne podobne modyfikacje i narzędzia</span></div>
+        </div>
+      </article>
+    </div>
+    <div class="callout warning">Jeśli nie wiesz, czy dany mod jest dozwolony, stwórz ticket i zapytaj administrację.</div>
+  </section>
+</div>
+
+</main>
+
+<footer>© 2026 Supernova Tiers · Minecraft PvP</footer>
+
+<script>
+function showPage(id){
+  const page=document.getElementById(id);
+  if(!page)return;
+  document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+  document.querySelectorAll('.navlinks button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+  if(history.replaceState)history.replaceState(null,'','#'+id);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.querySelectorAll('.navlinks button').forEach(button=>{
+  button.addEventListener('click',()=>showPage(button.dataset.page));
+});
+const initial=location.hash.slice(1);
+if(initial&&document.getElementById(initial))showPage(initial);
+</script>
+</body>
+</html>
